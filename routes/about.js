@@ -6,6 +6,6 @@ const {
     getAbout
 } = require('../controllers/about');
 
-aboutRouter.get('/', getAbout);
+aboutRouter.get('/about', getAbout);
 
 module.exports = aboutRouter;
