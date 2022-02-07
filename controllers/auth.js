@@ -1,6 +1,6 @@
 const AuthError = require("../errors/AuthError");
 const jwt = require('jsonwebtoken');
-const { User } = require("../models/users");
+const { User }  = require("../models");
 
 const login = async (req, res, next) => {
     const { login, password } = req.body;
@@ -20,19 +20,6 @@ const login = async (req, res, next) => {
     res.send({ token, user: user.name })
 };
 
-const init = async () => {
-    const arr = [
-        { login: "john", password: "123", name: "John Snow" },
-        { login: "pink", password: "qwerty", name: "Pink Floyd" },
-        { login: "tom", password: "admin", name: "Tom Cruise" },
-    ]
-
-    await User.bulkCreate(arr, {
-        updateOnDuplicate: ["name"]
-    })
-};
-
 module.exports = {
-    login,
-    init
+    login
 };

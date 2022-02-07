@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
+    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "test": "jest"
   },
   "author": "Ramil",
@@ -24,6 +25,7 @@
   "devDependencies": {
     "jest": "^27.5.0",
     "nodemon": "^2.0.15",
+    "sequelize-cli": "^6.4.1",
     "supertest": "^6.2.2"
   }
 }

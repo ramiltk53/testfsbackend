@@ -4,10 +4,10 @@ const cookieParser = require('cookie-parser');
 const { PORT = 3000 } = process.env;
 const sequelize = require("./db")
 const cors = require("cors")
+const auth = require('./middlewares/auth');
+
 
 const NotFoundError = require('./errors/NotFoundError');
-
-const init = require('./controllers/auth').init;
 
 const aboutRouter = require('./routes/about');
 const authRouter = require('./routes/auth');
@@ -22,7 +22,7 @@ const start = async () => {
     try {
         await sequelize.authenticate();
         await sequelize.sync();
-        await init();
+
         app.listen(PORT, () => {
             console.log(`App listening on port ${PORT}`)
         })
@@ -31,8 +31,9 @@ const start = async () => {
     }
 }
 
-app.use(aboutRouter)
 app.use(authRouter)
+app.use(auth)
+app.use(aboutRouter)
 
 app.use((req, res, next) => {
     next(new NotFoundError('Страница не существует'));
